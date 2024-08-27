@@ -14,12 +14,14 @@ public class CLogin : MonoBehaviour
     public TMP_InputField pwInput;
 
     public Button loginButton;
+    public Button createButton;
 
     public GameObject loginFailTMP;
 
     private void Awake()
     {
         loginButton.onClick.AddListener(OnLogin);
+        createButton.onClick.AddListener(OnToCreateAccount);
     }
 
     private void OnLogin()
@@ -35,5 +37,10 @@ public class CLogin : MonoBehaviour
     private void FailLogin()
     {
         loginFailTMP.SetActive(true);
+    }
+
+    private void OnToCreateAccount()
+    {
+        PanelManager.Instance.InitPanel((int)Panel.createAccountPanel);
     }
 }

@@ -5,15 +5,15 @@ using UnityEngine;
 /*시작화면의 로그인 패널과 계정 생성 패널을 관리하는 패널 매니저입니다.
  */
 
+public enum Panel
+{
+    loginPanel,
+    createAccountPanel
+}
+
 public class PanelManager : MonoBehaviour
 {
     public static PanelManager Instance { get; private set; }
-
-    public enum Panel
-    {
-        loginPanel,
-        createAccountPanel
-    }
 
     public GameObject[] panels;
 

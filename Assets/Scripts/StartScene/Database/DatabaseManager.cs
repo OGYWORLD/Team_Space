@@ -71,7 +71,7 @@ public class DatabaseManager : MonoBehaviour
 
             bool isLoginSuccess = set.Tables.Count > 0 && set.Tables[0].Rows.Count > 0;
 
-            if(isLoginSuccess)
+            if (isLoginSuccess)
             {
                 DataRow row = set.Tables[0].Rows[0];
                 data = new UserData(row);
@@ -89,6 +89,11 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+    public void CreateAccount(string email, string pw, Action successLogin, Action failLogin)
+    {
+
+    }
+
     public string EncryptionBySHA256(string pw)
     {
         string pwHash = "";
@@ -96,7 +101,7 @@ public class DatabaseManager : MonoBehaviour
         SHA256 sha256 = SHA256.Create();
         byte[] hashArray = sha256.ComputeHash(Encoding.UTF8.GetBytes(pw));
 
-        foreach(byte b in hashArray)
+        foreach (byte b in hashArray)
         {
             pwHash += $"{b:X2}";
         }
@@ -104,5 +109,21 @@ public class DatabaseManager : MonoBehaviour
         sha256.Dispose();
 
         return pwHash;
+    }
+
+    public bool CheckEmailDuplication(string email)
+    {
+        MySqlCommand cmd = new MySqlCommand();
+
+        cmd.Connection = conn;
+        cmd.CommandText = $"SELECT * FROM {tableName} WHERE email='{email}'";
+
+        MySqlDataAdapter dataAdapter = new MySqlDataAdapter(cmd);
+
+        DataSet set = new DataSet();
+
+        dataAdapter.Fill(set);
+
+        return set.Tables[0].Rows.Count == 0;
     }
 }

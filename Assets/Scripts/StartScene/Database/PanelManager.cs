@@ -8,14 +8,20 @@ using UnityEngine;
 public enum Panel
 {
     loginPanel,
-    createAccountPanel
+    createAccountPanel,
+    mainMenuPanel,
+    matchingPanel
 }
+
+public delegate void ToMainMenu();
 
 public class PanelManager : MonoBehaviour
 {
     public static PanelManager Instance { get; private set; }
 
     public GameObject[] panels;
+
+    public ToMainMenu toMainMenu;
 
     private void Awake()
     {

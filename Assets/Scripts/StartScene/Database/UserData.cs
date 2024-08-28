@@ -9,13 +9,16 @@ public class UserData
     public string email;
     public string passwd { get; set; }
 
-    public int lv;
+    public string name;
 
-    public UserData(string email, string passwd, int lv)
+    public int EXP;
+
+    public UserData(string email, string passwd, string name, int EXP)
     {
         this.email = email;
         this.passwd = passwd;
-        this.lv = lv;
+        this.name = name;
+        this.EXP = EXP;
     }
 
     public UserData(DataRow row)
@@ -23,6 +26,7 @@ public class UserData
         this.uid = int.Parse(row["uid"].ToString());
         this.email = row["email"].ToString();
         this.passwd = row["passwd"].ToString();
-        this.lv = int.Parse(row["lv"].ToString());
+        this.name = row["name"].ToString();
+        this.EXP = int.Parse(row["EXP"].ToString());
     }
 }

@@ -11,17 +11,25 @@ public class CCameraMove : MonoBehaviour
     public GameObject mainCamera;
 
     private Transform originCameraTrans;
+    private int cameraIndex;
+
 
     private void Start()
     {
         originCameraTrans = mainCamera.transform;
+        PanelManager.Instance.toMainMenu += TurnCameraOnMainMenu;
 
         StartCoroutine(CameraMove());
     }
 
+    private void TurnCameraOnMainMenu()
+    {
+        StartCoroutine(CameraTurn());
+    }
+
     private IEnumerator CameraMove()
     {
-        int index = 0;
+        int cameraIndex = 0;
 
         float moveTime = 1f;
         float sumTime = 0f;
@@ -30,21 +38,41 @@ public class CCameraMove : MonoBehaviour
         while(sumTime <= moveTime)
         {
             float time = sumTime / moveTime;
-            mainCamera.transform.position = Vector3.Lerp(originCameraTrans.position, pos[index].position, time);
+            mainCamera.transform.position = Vector3.Lerp(originCameraTrans.position, pos[cameraIndex].position, time);
 
             sumTime += Time.deltaTime;
 
             yield return null;
         }
 
-        index++;
+        cameraIndex++;
         sumTime = 0f;
 
         // position02까지 움직임
         while (sumTime <= moveTime)
         {
             float time = sumTime / moveTime;
-            mainCamera.transform.position = Vector3.Lerp(originCameraTrans.position, pos[index].position, time);
+            mainCamera.transform.position = Vector3.Lerp(originCameraTrans.position, pos[cameraIndex].position, time);
+
+            sumTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+    }
+
+    private IEnumerator CameraTurn()
+    {
+        cameraIndex++;
+        
+        float moveTime = 1f;
+        float sumTime = 0f;
+
+        // position01까지 움직임
+        while (sumTime <= moveTime)
+        {
+            float time = sumTime / moveTime;
+            mainCamera.transform.rotation = Quaternion.Lerp(originCameraTrans.rotation, pos[cameraIndex].rotation, time);
 
             sumTime += Time.deltaTime;
 

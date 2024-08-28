@@ -24,6 +24,14 @@ public class CLogin : MonoBehaviour
         createButton.onClick.AddListener(OnToCreateAccount);
     }
 
+    private void OnEnable()
+    {
+        loginFailTMP.SetActive(false);
+
+        emailInput.text = "";
+        pwInput.text = "";
+    }
+
     private void OnLogin()
     {
         DatabaseManager.Instance.Login(emailInput.text, pwInput.text, SuccessLogin, FailLogin);
@@ -31,7 +39,8 @@ public class CLogin : MonoBehaviour
 
     private void SuccessLogin()
     {
-        // TODO: æ¿¿Ãµø
+        PanelManager.Instance.InitPanel((int)Panel.mainMenuPanel);
+        PanelManager.Instance.toMainMenu?.Invoke();
     }
 
     private void FailLogin()

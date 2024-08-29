@@ -63,8 +63,8 @@ public class CCameraMove : MonoBehaviour
 
     private IEnumerator CameraTurn()
     {
-        cameraIndex++;
-        
+        cameraIndex = pos.Length - 1;
+
         float moveTime = 1f;
         float sumTime = 0f;
 
